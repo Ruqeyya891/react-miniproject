@@ -7,7 +7,7 @@
         "price": 80,
         "oldPrice": 120,
         "discount": 30,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6"
+        "image": "/images/product-1.jpg"
       },
       {
         "id": 2,
@@ -16,7 +16,7 @@
         "price": 120,
         "oldPrice": 120,
         "discount": 0,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd7"
+        "image": "/images/product-2.jpg"
       },
       {
         "id": 3,
@@ -25,7 +25,7 @@
         "price": 120,
         "oldPrice": 120,
         "discount": 0,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd8"
+        "image": "/images/product-3.jpg"
       },
       {
         "id": 4,
@@ -34,7 +34,7 @@
         "price": 120,
         "oldPrice": 120,
         "discount": 0,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd9"
+        "image": "/images/product-4.jpg"
       },
       {
         "id": 5,
@@ -43,7 +43,7 @@
         "price": 80,
         "oldPrice": 120,
         "discount": 30,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbda"
+        "image": "/images/product-5.jpg"
       },
       {
         "id": 6,
@@ -52,7 +52,7 @@
         "price": 120,
         "oldPrice": 120,
         "discount": 0,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbdb"
+        "image": "/images/product-6.jpg"
       },
       {
         "id": 7,
@@ -61,7 +61,7 @@
         "price": 120,
         "oldPrice": 120,
         "discount": 0,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbdc"
+        "image": "/images/product-7.jpg"
       },
       {
         "id": 8,
@@ -70,7 +70,7 @@
         "price": 120,
         "oldPrice": 120,
         "discount": 0,
-        "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbdd"
+        "image": "/images/product-8.jpg"
       }
     ],
     "blogs": [
@@ -79,7 +79,8 @@
         "title": "Why Organic Food is Better",
         "description": "Organic foods are grown without harmful pesticides and are healthier for your body.",
         "date": "2024-05-12",
-        "position": "Health"
+        "position": "Health",
+        "image": "/images/product-6.jpg"
       }
     ]
   }

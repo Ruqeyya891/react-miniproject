@@ -2,7 +2,7 @@ import {
     Box, 
     Container, 
     Typography, 
-    Grid, 
+    Grid2 as Grid, 
     Card, 
     CardContent,
     Button,
@@ -35,7 +35,7 @@ import {
         {/* Stats Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {stats.map((stat, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
               <Card>
                 <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                   <Box 
@@ -67,7 +67,7 @@ import {
         </Typography>
         
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -96,7 +96,7 @@ import {
             </Card>
           </Grid>
   
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
@@ -129,4 +129,4 @@ import {
     )
   }
   
-  export default Dashboardgit
+  export default Dashboard

@@ -12,8 +12,15 @@ import {
   TableRow, 
   Paper,
   IconButton,
-  Chip
+  Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem
 } from '@mui/material'
+import Grid from '@mui/material/Grid2'
 import { Link } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -30,10 +37,30 @@ const mockProducts = [
 
 function AdminProducts() {
   const [products, setProducts] = useState(mockProducts)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [editingProduct, setEditingProduct] = useState(null)
 
   // Delete funksiyası
   const handleDelete = (id) => {
     setProducts(products.filter(p => p.id !== id))
+  }
+
+  // Edit funksiyası
+  const handleEdit = (product) => {
+    setEditingProduct(product)
+    setOpenDialog(true)
+  }
+
+  // Add funksiyası
+  const handleAdd = () => {
+    setEditingProduct(null)
+    setOpenDialog(true)
+  }
+
+  // Dialog bağla
+  const handleClose = () => {
+    setOpenDialog(false)
+    setEditingProduct(null)
   }
 
   return (
@@ -56,6 +83,7 @@ function AdminProducts() {
         <Button 
           variant="contained" 
           startIcon={<AddIcon />}
+          onClick={handleAdd}
           sx={{ backgroundColor: '#82ae46', '&:hover': { backgroundColor: '#6b8c3a' } }}
         >
           Add Product
@@ -103,7 +131,7 @@ function AdminProducts() {
                   )}
                 </TableCell>
                 <TableCell align="center">
-                  <IconButton color="primary">
+                  <IconButton color="primary" onClick={() => handleEdit(product)}>
                     <EditIcon />
                   </IconButton>
                   <IconButton color="error" onClick={() => handleDelete(product.id)}>
@@ -115,6 +143,67 @@ function AdminProducts() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Add/Edit Dialog */}
+      <Dialog open={openDialog} onClose={handleClose} maxWidth="sm" fullWidth>
+        <DialogTitle>
+          {editingProduct ? 'Edit Product' : 'Add New Product'}
+        </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={2} sx={{ mt: 1 }}>
+            <Grid size={{ xs: 12 }}>
+              <TextField 
+                label="Product Name" 
+                fullWidth 
+                defaultValue={editingProduct?.name || ''} 
+              />
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField 
+                label="Price" 
+                type="number" 
+                fullWidth 
+                defaultValue={editingProduct?.price || ''} 
+              />
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField 
+                label="Old Price" 
+                type="number" 
+                fullWidth 
+                defaultValue={editingProduct?.oldPrice || ''} 
+              />
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField 
+                select 
+                label="Category" 
+                fullWidth 
+                defaultValue={editingProduct?.category || 'Vegetables'}
+              >
+                <MenuItem value="Vegetables">Vegetables</MenuItem>
+                <MenuItem value="Fruits">Fruits</MenuItem>
+                <MenuItem value="Juice">Juice</MenuItem>
+                <MenuItem value="Dried">Dried</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid size={{ xs: 12, sm: 6 }}>
+              <TextField 
+                label="Discount %" 
+                type="number" 
+                fullWidth 
+                defaultValue={editingProduct?.discount || 0} 
+              />
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button variant="contained" sx={{ backgroundColor: '#82ae46' }}>
+            {editingProduct ? 'Save Changes' : 'Add Product'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   )
 }

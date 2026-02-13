@@ -2,12 +2,12 @@ import {
     Box, 
     Container, 
     Typography, 
-    Grid2 as Grid, 
     Card, 
     CardContent,
     Button,
     Divider
   } from '@mui/material'
+  import Grid from '@mui/material/Grid2'
   import { Link } from 'react-router-dom'
   import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
   import ArticleIcon from '@mui/icons-material/Article'

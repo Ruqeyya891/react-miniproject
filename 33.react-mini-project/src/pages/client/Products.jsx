@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { 
   Box, 
@@ -13,8 +14,7 @@ import {
   FormControl, 
   InputLabel, 
   Select,
-  IconButton,
-  Chip
+  IconButton
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -35,6 +35,12 @@ const mockProducts = [
   { id: 8, name: "Fruit Juice", category: "Juice", price: 120, oldPrice: 120, discount: 0, image: "/images/product-8.jpg" },
 ]
 
+// animasiya 
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 }
+}
+
 function Products() {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
@@ -42,10 +48,11 @@ function Products() {
 
   return (
     <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
-      {/* Header */}
+      {/* Header - Altdan yuxarı */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        variants={fadeUpVariants}
+        initial="hidden"
+        animate="visible"
         transition={{ duration: 0.5 }}
       >
         <Typography 
@@ -71,58 +78,65 @@ function Products() {
         </Typography>
       </motion.div>
 
-      {/* Filters - Responsiv */}
-      <Box 
-        sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' },
-          gap: 2, 
-          mb: { xs: 3, md: 4 },
-          flexWrap: 'wrap'
-        }}
+      {/* Filters  */}
+      <motion.div
+        variants={fadeUpVariants}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <TextField
-          label="Search products..."
-          variant="outlined"
-          size="small"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          sx={{ minWidth: { xs: '100%', sm: 200 } }}
-        />
-        
-        <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 150 } }}>
-          <InputLabel>Category</InputLabel>
-          <Select value={category} label="Category" onChange={(e) => setCategory(e.target.value)}>
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="Vegetables">Vegetables</MenuItem>
-            <MenuItem value="Fruits">Fruits</MenuItem>
-            <MenuItem value="Juice">Juice</MenuItem>
-            <MenuItem value="Dried">Dried</MenuItem>
-          </Select>
-        </FormControl>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: 2, 
+            mb: { xs: 3, md: 4 },
+            flexWrap: 'wrap'
+          }}
+        >
+          <TextField
+            label="Search products..."
+            variant="outlined"
+            size="small"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            sx={{ minWidth: { xs: '100%', sm: 200 } }}
+          />
+          
+          <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 150 } }}>
+            <InputLabel>Category</InputLabel>
+            <Select value={category} label="Category" onChange={(e) => setCategory(e.target.value)}>
+              <MenuItem value="">All</MenuItem>
+              <MenuItem value="Vegetables">Vegetables</MenuItem>
+              <MenuItem value="Fruits">Fruits</MenuItem>
+              <MenuItem value="Juice">Juice</MenuItem>
+              <MenuItem value="Dried">Dried</MenuItem>
+            </Select>
+          </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 150 } }}>
-          <InputLabel>Sort By</InputLabel>
-          <Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
-            <MenuItem value="">Default</MenuItem>
-            <MenuItem value="price-asc">Price: Low to High</MenuItem>
-            <MenuItem value="price-desc">Price: High to Low</MenuItem>
-            <MenuItem value="name-asc">Name: A-Z</MenuItem>
-            <MenuItem value="name-desc">Name: Z-A</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+          <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 150 } }}>
+            <InputLabel>Sort By</InputLabel>
+            <Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
+              <MenuItem value="">Default</MenuItem>
+              <MenuItem value="price-asc">Price: Low to High</MenuItem>
+              <MenuItem value="price-desc">Price: High to Low</MenuItem>
+              <MenuItem value="name-asc">Name: A-Z</MenuItem>
+              <MenuItem value="name-desc">Name: Z-A</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+      </motion.div>
 
-      {/* Products Grid */}
+      {/* Products Grid  */}
       <Grid container spacing={{ xs: 2, md: 3 }}>
         {mockProducts.map((product, index) => (
           <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
             <MotionCard 
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05, duration: 0.5 }}
-              whileHover={{ y: -10 }}
+              variants={fadeUpVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               sx={{ 
                 position: 'relative', 
                 height: '100%',

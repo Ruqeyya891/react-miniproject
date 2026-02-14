@@ -92,7 +92,7 @@ const recentBlogs = [
   { id: 3, title: "Even the all-powerful Pointing has no control about the blind texts", date: "April 09, 2019", image: "/images/image_3.jpg" },
 ]
 
-// Altdan yuxarı animasiya
+// animasiya
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0 }
@@ -298,24 +298,25 @@ function Blogs() {
               ))}
             </MotionBox>
 
-            {/* Recent Blog */}
+            {/* Recent Blog - duzeltdim*/}
             <MotionBox
               variants={fadeUpVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              sx={{ mb: 4 }}
             >
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 500, fontSize: '1.125rem' }}>
                 Recent Blog
               </Typography>
               {recentBlogs.map((blog) => (
-                <Box key={blog.id} sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                <Box key={blog.id} sx={{ display: 'flex', gap: 2, mb: 3 }}>
                   <Box
                     component="img"
                     src={blog.image}
                     alt={blog.title}
-                    sx={{ width: 80, height: 80, objectFit: 'cover' }}
+                    sx={{ width: 60, height: 60, objectFit: 'cover' }}
                   />
                   <Box>
                     <Typography 
@@ -329,12 +330,40 @@ function Blogs() {
                     >
                       {blog.title}
                     </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      📅 {blog.date}
-                    </Typography>
+                    {/* Meta info */}
+                    <Box sx={{ display: 'flex', gap: 1.5, color: 'text.secondary', fontSize: 12 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.3 }}>
+                        <CalendarTodayIcon sx={{ fontSize: 12 }} />
+                        {blog.date}
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.3 }}>
+                        <PersonIcon sx={{ fontSize: 12 }} />
+                        Admin
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.3 }}>
+                        <ChatBubbleIcon sx={{ fontSize: 12 }} />
+                        19
+                      </Box>
+                    </Box>
                   </Box>
                 </Box>
               ))}
+            </MotionBox>
+
+            {/* Paragraph */}
+            <MotionBox
+              variants={fadeUpVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 500, fontSize: '1.125rem' }}>
+                Paragraph
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!
+              </Typography>
             </MotionBox>
           </Grid>
         </Grid>

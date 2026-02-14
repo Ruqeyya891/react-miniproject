@@ -6,6 +6,7 @@ import Home from './pages/client/Home'
 import Products from './pages/client/Products'
 import ProductDetail from './pages/client/ProductDetail'
 import Blogs from './pages/client/Blogs'
+import Cart from './pages/client/Cart'  
 import Dashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/Products'
 import AdminBlogs from './pages/admin/Blogs'
@@ -26,6 +27,7 @@ function App() {
           <Route path="/shop" element={<Products />} />
           <Route path="/shop/:id" element={<ProductDetail />} />
           <Route path="/blog" element={<Blogs />} />
+          <Route path="/cart" element={<Cart />} />  
           
           {/* Admin Routes */}
           <Route path="/admin" element={<Dashboard />} />

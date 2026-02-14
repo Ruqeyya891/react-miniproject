@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Box, 
-  Button, 
-  IconButton, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  IconButton,
   Badge,
   Menu,
   MenuItem,
@@ -49,9 +49,9 @@ function Navbar() {
   return (
     <Box>
       {/* Top Bar - Yaşıl zolaq (yalnız desktop) */}
-      <Box sx={{ 
-        backgroundColor: '#82ae46', 
-        color: 'white', 
+      <Box sx={{
+        backgroundColor: '#82ae46',
+        color: 'white',
         py: 0.8,
         px: 2,
         display: { xs: 'none', md: 'flex' },
@@ -73,25 +73,27 @@ function Navbar() {
         </Typography>
       </Box>
 
+
+
       {/* Main Navbar */}
-      <AppBar 
-        position="static" 
-        sx={{ 
-          backgroundColor: '#fff', 
-          color: '#000', 
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: '#fff',
+          color: '#000',
           boxShadow: 'none',
           py: 1
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 4 } }}>
           {/* Logo */}
-          <Typography 
-            variant="h5" 
-            component={Link} 
-            to="/" 
-            sx={{ 
-              textDecoration: 'none', 
-              color: '#82ae46', 
+          <Typography
+            variant="h5"
+            component={Link}
+            to="/"
+            sx={{
+              textDecoration: 'none',
+              color: '#82ae46',
               fontWeight: 'bold',
               fontFamily: 'Poppins, sans-serif',
               letterSpacing: 2,
@@ -102,31 +104,31 @@ function Navbar() {
           </Typography>
 
           {/* Desktop Menu */}
-          <Box sx={{ 
-            display: { xs: 'none', md: 'flex' }, 
+          <Box sx={{
+            display: { xs: 'none', md: 'flex' },
             gap: 4,
             alignItems: 'center'
           }}>
-            <Button 
-              component={Link} 
-              to="/" 
-              sx={{ 
-                color: '#000', 
+            <Button
+              component={Link}
+              to="/"
+              sx={{
+                color: '#000',
                 fontWeight: 500,
                 '&:hover': { color: '#82ae46' }
               }}
             >
               HOME
             </Button>
-            
+
             {/* SHOP with Dropdown */}
             <Box>
-              <Button 
+              <Button
                 onClick={handleShopClick}
                 onMouseEnter={handleShopClick}
                 endIcon={<KeyboardArrowDownIcon />}
-                sx={{ 
-                  color: '#000', 
+                sx={{
+                  color: '#000',
                   fontWeight: 500,
                   '&:hover': { color: '#82ae46' }
                 }}
@@ -154,7 +156,7 @@ function Navbar() {
                 <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Checkout</MenuItem>
               </Menu>
             </Box>
-            
+
             <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>ABOUT</Button>
             <Button component={Link} to="/blog" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>BLOG</Button>
             <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>CONTACT</Button>
@@ -167,19 +169,21 @@ function Navbar() {
                 <FavoriteIcon />
               </Badge>
             </IconButton>
+
             
-            <IconButton component={Link} to="/" sx={{ color: '#000' }}>
+            <IconButton component={Link} to="/cart" sx={{ color: '#000' }}>
               <Badge badgeContent={0} color="primary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            
+
+
             <Typography variant="body2" sx={{ ml: -0.5, fontWeight: 500, display: { xs: 'none', sm: 'block' } }}>
               [0]
             </Typography>
 
             {/* Mobile menu button */}
-            <IconButton 
+            <IconButton
               onClick={toggleMobileMenu}
               sx={{ color: '#000', display: { xs: 'flex', md: 'none' } }}
             >
@@ -199,12 +203,12 @@ function Navbar() {
         <Box sx={{ width: 250, pt: 2 }}>
           <List>
             {menuItems.map((item) => (
-              <ListItem 
-                key={item.text} 
-                component={Link} 
+              <ListItem
+                key={item.text}
+                component={Link}
                 to={item.link}
                 onClick={toggleMobileMenu}
-                sx={{ 
+                sx={{
                   color: '#000',
                   '&:hover': { color: '#82ae46', backgroundColor: 'transparent' }
                 }}

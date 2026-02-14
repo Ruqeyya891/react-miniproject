@@ -13,12 +13,17 @@ import {
   FormControl, 
   InputLabel, 
   Select,
-  IconButton
+  IconButton,
+  Chip
 } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
-// Mock data - sonra API-dən gələcək
+const MotionCard = motion.create(Card)
+
+// Mock data
 const mockProducts = [
   { id: 1, name: "Bell Pepper", category: "Vegetables", price: 80, oldPrice: 120, discount: 30, image: "/images/product-1.jpg" },
   { id: 2, name: "Strawberry", category: "Fruits", price: 120, oldPrice: 120, discount: 0, image: "/images/product-2.jpg" },
@@ -36,27 +41,56 @@ function Products() {
   const [sort, setSort] = useState('')
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
       {/* Header */}
-      <Typography variant="h4" sx={{ textAlign: 'center', mb: 2, fontWeight: 'bold' }}>
-        Our Products
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', mb: 4 }}>
-        We offer the best organic products
-      </Typography>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            textAlign: 'center', 
+            mb: 2, 
+            fontWeight: 'bold',
+            fontSize: { xs: '1.75rem', md: '2.125rem' }
+          }}
+        >
+          Our Products
+        </Typography>
+        <Typography 
+          variant="body1" 
+          color="text.secondary" 
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 3, md: 4 } 
+          }}
+        >
+          We offer the best organic products
+        </Typography>
+      </motion.div>
 
-      {/* Filters */}
-      <Box sx={{ display: 'flex', gap: 2, mb: 4, flexWrap: 'wrap' }}>
+      {/* Filters - Responsiv */}
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: 2, 
+          mb: { xs: 3, md: 4 },
+          flexWrap: 'wrap'
+        }}
+      >
         <TextField
           label="Search products..."
           variant="outlined"
           size="small"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          sx={{ minWidth: 200 }}
+          sx={{ minWidth: { xs: '100%', sm: 200 } }}
         />
         
-        <FormControl size="small" sx={{ minWidth: 150 }}>
+        <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 150 } }}>
           <InputLabel>Category</InputLabel>
           <Select value={category} label="Category" onChange={(e) => setCategory(e.target.value)}>
             <MenuItem value="">All</MenuItem>
@@ -67,7 +101,7 @@ function Products() {
           </Select>
         </FormControl>
 
-        <FormControl size="small" sx={{ minWidth: 150 }}>
+        <FormControl size="small" sx={{ minWidth: { xs: '100%', sm: 150 } }}>
           <InputLabel>Sort By</InputLabel>
           <Select value={sort} label="Sort By" onChange={(e) => setSort(e.target.value)}>
             <MenuItem value="">Default</MenuItem>
@@ -80,10 +114,22 @@ function Products() {
       </Box>
 
       {/* Products Grid */}
-      <Grid container spacing={3}>
-        {mockProducts.map((product) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-            <Card sx={{ position: 'relative', '&:hover': { boxShadow: 6 } }}>
+      <Grid container spacing={{ xs: 2, md: 3 }}>
+        {mockProducts.map((product, index) => (
+          <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
+            <MotionCard 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05, duration: 0.5 }}
+              whileHover={{ y: -10 }}
+              sx={{ 
+                position: 'relative', 
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+            >
               {/* Discount Badge */}
               {product.discount > 0 && (
                 <Box sx={{ 
@@ -103,28 +149,38 @@ function Products() {
 
               <CardMedia
                 component="img"
-                height="250"
                 image={product.image}
                 alt={product.name}
-                sx={{ objectFit: 'cover' }}
+                sx={{ 
+                  height: { xs: 200, md: 250 },
+                  objectFit: 'cover'
+                }}
               />
 
-              <CardContent sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                  {product.category}
-                </Typography>
-                <Typography variant="h6" sx={{ mb: 1 }}>
-                  {product.name}
-                </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, mb: 2 }}>
-                  <Typography variant="h6" color="#82ae46" fontWeight="bold">
-                    ${product.price}
+              <CardContent sx={{ 
+                textAlign: 'center', 
+                flexGrow: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between'
+              }}>
+                <Box>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                    {product.category}
                   </Typography>
-                  {product.oldPrice > product.price && (
-                    <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
-                      ${product.oldPrice}
+                  <Typography variant="h6" sx={{ mb: 1 }}>
+                    {product.name}
+                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, mb: 2 }}>
+                    <Typography variant="h6" color="#82ae46" fontWeight="bold">
+                      ${product.price}
                     </Typography>
-                  )}
+                    {product.oldPrice > product.price && (
+                      <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                        ${product.oldPrice}
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
 
                 {/* Action Buttons */}
@@ -134,14 +190,19 @@ function Products() {
                   </IconButton>
                   <Button 
                     variant="contained" 
+                    component={Link}
+                    to={`/shop/${product.id}`}
                     startIcon={<ShoppingCartIcon />}
-                    sx={{ backgroundColor: '#82ae46', '&:hover': { backgroundColor: '#6b8c3a' } }}
+                    sx={{ 
+                      backgroundColor: '#82ae46', 
+                      '&:hover': { backgroundColor: '#6b8c3a' }
+                    }}
                   >
-                    Add to Cart
+                    View
                   </Button>
                 </Box>
               </CardContent>
-            </Card>
+            </MotionCard>
           </Grid>
         ))}
       </Grid>

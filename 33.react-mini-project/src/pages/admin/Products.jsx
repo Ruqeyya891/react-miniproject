@@ -39,21 +39,25 @@ function AdminProducts() {
   const [products, setProducts] = useState(mockProducts)
   const [openDialog, setOpenDialog] = useState(false)
   const [editingProduct, setEditingProduct] = useState(null)
-  
+
+  // Delete funksiyası
   const handleDelete = (id) => {
     setProducts(products.filter(p => p.id !== id))
   }
 
+  // Edit funksiyası
   const handleEdit = (product) => {
     setEditingProduct(product)
     setOpenDialog(true)
   }
 
+  // Add funksiyası
   const handleAdd = () => {
     setEditingProduct(null)
     setOpenDialog(true)
   }
 
+  // Dialog bağla
   const handleClose = () => {
     setOpenDialog(false)
     setEditingProduct(null)
@@ -61,15 +65,8 @@ function AdminProducts() {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      {/* Header - Responsiv */}
-      <Box sx={{ 
-        display: 'flex', 
-        flexDirection: { xs: 'column', sm: 'row' },
-        justifyContent: 'space-between', 
-        alignItems: { xs: 'flex-start', sm: 'center' }, 
-        gap: 2,
-        mb: 4 
-      }}>
+      {/* Header */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
         <Box>
           <Button 
             component={Link} 
@@ -87,19 +84,15 @@ function AdminProducts() {
           variant="contained" 
           startIcon={<AddIcon />}
           onClick={handleAdd}
-          sx={{ 
-            backgroundColor: '#82ae46', 
-            '&:hover': { backgroundColor: '#6b8c3a' },
-            width: { xs: '100%', sm: 'auto' }
-          }}
+          sx={{ backgroundColor: '#82ae46', '&:hover': { backgroundColor: '#6b8c3a' } }}
         >
           Add Product
         </Button>
       </Box>
 
-      {/* Products Table - Responsiv */}
-      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
-        <Table sx={{ minWidth: 650 }}>
+      {/* Products Table */}
+      <TableContainer component={Paper}>
+        <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
               <TableCell>ID</TableCell>
@@ -159,16 +152,35 @@ function AdminProducts() {
         <DialogContent>
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid size={{ xs: 12 }}>
-              <TextField label="Product Name" fullWidth defaultValue={editingProduct?.name || ''} />
+              <TextField 
+                label="Product Name" 
+                fullWidth 
+                defaultValue={editingProduct?.name || ''} 
+              />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField label="Price" type="number" fullWidth defaultValue={editingProduct?.price || ''} />
+              <TextField 
+                label="Price" 
+                type="number" 
+                fullWidth 
+                defaultValue={editingProduct?.price || ''} 
+              />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField label="Old Price" type="number" fullWidth defaultValue={editingProduct?.oldPrice || ''} />
+              <TextField 
+                label="Old Price" 
+                type="number" 
+                fullWidth 
+                defaultValue={editingProduct?.oldPrice || ''} 
+              />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField select label="Category" fullWidth defaultValue={editingProduct?.category || 'Vegetables'}>
+              <TextField 
+                select 
+                label="Category" 
+                fullWidth 
+                defaultValue={editingProduct?.category || 'Vegetables'}
+              >
                 <MenuItem value="Vegetables">Vegetables</MenuItem>
                 <MenuItem value="Fruits">Fruits</MenuItem>
                 <MenuItem value="Juice">Juice</MenuItem>
@@ -176,7 +188,12 @@ function AdminProducts() {
               </TextField>
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <TextField label="Discount %" type="number" fullWidth defaultValue={editingProduct?.discount || 0} />
+              <TextField 
+                label="Discount %" 
+                type="number" 
+                fullWidth 
+                defaultValue={editingProduct?.discount || 0} 
+              />
             </Grid>
           </Grid>
         </DialogContent>

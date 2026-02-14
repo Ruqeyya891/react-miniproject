@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { 
   Box, 
   Container, 
-  Grid2 as Grid, 
+  Grid, 
   Typography, 
   Button, 
   Card, 

@@ -8,7 +8,11 @@ import {
   IconButton, 
   Badge,
   Menu,
-  MenuItem
+  MenuItem,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import PhoneIcon from '@mui/icons-material/Phone'
@@ -16,10 +20,11 @@ import EmailIcon from '@mui/icons-material/Email'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import MenuIcon from '@mui/icons-material/Menu'
 
 function Navbar() {
   const [shopAnchorEl, setShopAnchorEl] = useState(null)
-  const open = Boolean(shopAnchorEl)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleShopClick = (event) => {
     setShopAnchorEl(event.currentTarget)
@@ -29,9 +34,21 @@ function Navbar() {
     setShopAnchorEl(null)
   }
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
+
+  const menuItems = [
+    { text: 'HOME', link: '/' },
+    { text: 'SHOP', link: '/shop' },
+    { text: 'ABOUT', link: '/' },
+    { text: 'BLOG', link: '/blog' },
+    { text: 'CONTACT', link: '/' },
+  ]
+
   return (
     <Box>
-      {/* Yaşıl zolaq */}
+      {/* Top Bar - Yaşıl zolaq (yalnız desktop) */}
       <Box sx={{ 
         backgroundColor: '#82ae46', 
         color: 'white', 
@@ -56,7 +73,7 @@ function Navbar() {
         </Typography>
       </Box>
 
-      {/*  Ağ hissə */}
+      {/* Main Navbar */}
       <AppBar 
         position="static" 
         sx={{ 
@@ -118,12 +135,10 @@ function Navbar() {
               </Button>
               <Menu
                 anchorEl={shopAnchorEl}
-                open={open}
+                open={Boolean(shopAnchorEl)}
                 onClose={handleShopClose}
                 onMouseLeave={handleShopClose}
-                MenuListProps={{
-                  onMouseLeave: handleShopClose,
-                }}
+                MenuListProps={{ onMouseLeave: handleShopClose }}
                 sx={{
                   '& .MuiPaper-root': {
                     mt: 1,
@@ -132,130 +147,74 @@ function Navbar() {
                   }
                 }}
               >
-                <MenuItem 
-                  component={Link} 
-                  to="/shop" 
-                  onClick={handleShopClose}
-                  sx={{ '&:hover': { color: '#82ae46' } }}
-                >
-                  Shop
-                </MenuItem>
-                <MenuItem 
-                  component={Link} 
-                  to="/" 
-                  onClick={handleShopClose}
-                  sx={{ '&:hover': { color: '#82ae46' } }}
-                >
-                  Wishlist
-                </MenuItem>
-                <MenuItem 
-                  component={Link} 
-                  to="/shop/1" 
-                  onClick={handleShopClose}
-                  sx={{ '&:hover': { color: '#82ae46' } }}
-                >
-                  Single Product
-                </MenuItem>
-                <MenuItem 
-                  component={Link} 
-                  to="/" 
-                  onClick={handleShopClose}
-                  sx={{ '&:hover': { color: '#82ae46' } }}
-                >
-                  Cart
-                </MenuItem>
-                <MenuItem 
-                  component={Link} 
-                  to="/" 
-                  onClick={handleShopClose}
-                  sx={{ '&:hover': { color: '#82ae46' } }}
-                >
-                  Checkout
-                </MenuItem>
+                <MenuItem component={Link} to="/shop" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Shop</MenuItem>
+                <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Wishlist</MenuItem>
+                <MenuItem component={Link} to="/shop/1" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Single Product</MenuItem>
+                <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Cart</MenuItem>
+                <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Checkout</MenuItem>
               </Menu>
             </Box>
             
-            <Button 
-              component={Link} 
-              to="/" 
-              sx={{ 
-                color: '#000', 
-                fontWeight: 500,
-                '&:hover': { color: '#82ae46' }
-              }}
-            >
-              ABOUT
-            </Button>
-            
-            <Button 
-              component={Link} 
-              to="/blog" 
-              sx={{ 
-                color: '#000', 
-                fontWeight: 500,
-                '&:hover': { color: '#82ae46' }
-              }}
-            >
-              BLOG
-            </Button>
-            
-            <Button 
-              component={Link} 
-              to="/" 
-              sx={{ 
-                color: '#000', 
-                fontWeight: 500,
-                '&:hover': { color: '#82ae46' }
-              }}
-            >
-              CONTACT
-            </Button>
+            <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>ABOUT</Button>
+            <Button component={Link} to="/blog" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>BLOG</Button>
+            <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>CONTACT</Button>
           </Box>
 
-          {/* Icons */}
+          {/* Icons + Mobile Menu */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <IconButton 
-              component={Link}
-              to="/"
-              sx={{ color: '#000', display: { xs: 'none', sm: 'flex' } }}
-            >
+            <IconButton component={Link} to="/" sx={{ color: '#000', display: { xs: 'none', sm: 'flex' } }}>
               <Badge badgeContent={0} color="primary">
                 <FavoriteIcon />
               </Badge>
             </IconButton>
             
-            <IconButton 
-              component={Link}
-              to="/"
-              sx={{ color: '#000' }}
-            >
+            <IconButton component={Link} to="/" sx={{ color: '#000' }}>
               <Badge badgeContent={0} color="primary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
             
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                ml: -0.5,
-                fontWeight: 500,
-                display: { xs: 'none', sm: 'block' }
-              }}
-            >
+            <Typography variant="body2" sx={{ ml: -0.5, fontWeight: 500, display: { xs: 'none', sm: 'block' } }}>
               [0]
             </Typography>
 
+            {/* Mobile menu button */}
             <IconButton 
-              sx={{ 
-                color: '#000', 
-                display: { xs: 'flex', md: 'none' } 
-              }}
+              onClick={toggleMobileMenu}
+              sx={{ color: '#000', display: { xs: 'flex', md: 'none' } }}
             >
-              ☰
+              <MenuIcon />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        anchor="right"
+        open={mobileMenuOpen}
+        onClose={toggleMobileMenu}
+        sx={{ display: { md: 'none' } }}
+      >
+        <Box sx={{ width: 250, pt: 2 }}>
+          <List>
+            {menuItems.map((item) => (
+              <ListItem 
+                key={item.text} 
+                component={Link} 
+                to={item.link}
+                onClick={toggleMobileMenu}
+                sx={{ 
+                  color: '#000',
+                  '&:hover': { color: '#82ae46', backgroundColor: 'transparent' }
+                }}
+              >
+                <ListItemText primary={item.text} />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
     </Box>
   )
 }

@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Button, Grid, Card, CardMedia } from '@mui/material'
+import { Box, Container, Typography, Button, Grid, Card, CardMedia, CardContent } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
@@ -6,7 +6,6 @@ import RestaurantIcon from '@mui/icons-material/Restaurant'
 import StarIcon from '@mui/icons-material/Star'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
 
-// Motion components - YENİ SINTAKSIS
 const MotionBox = motion.create(Box)
 const MotionTypography = motion.create(Typography)
 const MotionCard = motion.create(Card)
@@ -26,6 +25,13 @@ function Home() {
     { name: 'Dried', image: '/images/product-4.jpg' },
   ]
 
+  const products = [
+    { id: 1, name: "Bell Pepper", price: 80, oldPrice: 120, image: "/images/product-1.jpg" },
+    { id: 2, name: "Strawberry", price: 120, image: "/images/product-2.jpg" },
+    { id: 3, name: "Green Beans", price: 120, image: "/images/product-3.jpg" },
+    { id: 4, name: "Purple Cabbage", price: 120, image: "/images/product-4.jpg" },
+  ]
+
   return (
     <Box>
       {/* Hero Section */}
@@ -34,7 +40,7 @@ function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         sx={{ 
-          height: { xs: '60vh', md: '80vh' },
+          height: { xs: '70vh', md: '90vh' },
           backgroundImage: 'url(/images/bg_1.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -64,7 +70,9 @@ function Home() {
             sx={{ 
               mb: 2, 
               fontWeight: 'bold',
-              fontSize: { xs: '2rem', sm: '3rem', md: '3.75rem' }
+              fontSize: { xs: '2rem', sm: '3rem', md: '4rem' },
+              textTransform: 'uppercase',
+              letterSpacing: 2
             }}
           >
             100% Fresh & Organic Foods
@@ -77,7 +85,7 @@ function Home() {
             variant="h5" 
             sx={{ 
               mb: 4,
-              fontSize: { xs: '1.2rem', sm: '1.5rem' }
+              fontSize: { xs: '1.1rem', sm: '1.5rem' }
             }}
           >
             We deliver organic vegetables & fruits
@@ -97,6 +105,9 @@ function Home() {
                 px: 4, 
                 py: 1.5,
                 fontSize: { xs: '1rem', md: '1.1rem' },
+                borderRadius: 30,
+                textTransform: 'uppercase',
+                letterSpacing: 1,
                 '&:hover': { backgroundColor: '#6b8c3a' }
               }}
             >
@@ -118,7 +129,19 @@ function Home() {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 sx={{ textAlign: 'center', p: 3 }}
               >
-                <feature.icon sx={{ fontSize: 50, color: '#82ae46', mb: 2 }} />
+                <Box sx={{ 
+                  width: 80, 
+                  height: 80, 
+                  borderRadius: '50%', 
+                  backgroundColor: '#f5f5f5',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mx: 'auto',
+                  mb: 2
+                }}>
+                  <feature.icon sx={{ fontSize: 40, color: '#82ae46' }} />
+                </Box>
                 <Typography variant="h6" sx={{ mb: 1 }}>{feature.title}</Typography>
                 <Typography variant="body2" color="text.secondary">{feature.desc}</Typography>
               </MotionBox>
@@ -153,10 +176,13 @@ function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 whileHover={{ scale: 1.03 }}
+                component={Link}
+                to="/shop"
                 sx={{ 
                   position: 'relative', 
                   overflow: 'hidden',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  textDecoration: 'none'
                 }}
               >
                 <CardMedia
@@ -184,6 +210,80 @@ function Home() {
           ))}
         </Grid>
       </Container>
+
+      {/* Featured Products Section */}
+      <Box sx={{ backgroundColor: '#f8f9fa', py: { xs: 4, md: 8 } }}>
+        <Container maxWidth="xl">
+          <MotionTypography 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            variant="h4" 
+            sx={{ 
+              textAlign: 'center', 
+              mb: { xs: 2, md: 2 }, 
+              fontWeight: 'bold',
+              fontSize: { xs: '1.75rem', md: '2.125rem' }
+            }}
+          >
+            Featured Products
+          </MotionTypography>
+          <MotionTypography 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            variant="body1" 
+            color="text.secondary"
+            sx={{ 
+              textAlign: 'center', 
+              mb: { xs: 4, md: 6 }
+            }}
+          >
+            Our most popular products
+          </MotionTypography>
+
+          <Grid container spacing={{ xs: 2, md: 3 }}>
+            {products.map((product, index) => (
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={product.id}>
+                <MotionCard 
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  whileHover={{ y: -10 }}
+                  sx={{ 
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    image={product.image}
+                    alt={product.name}
+                    sx={{ 
+                      height: { xs: 250, md: 300 },
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <CardContent sx={{ textAlign: 'center' }}>
+                    <Typography variant="h6" sx={{ mb: 1 }}>{product.name}</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="h6" color="#82ae46" fontWeight="bold">
+                        ${product.price}
+                      </Typography>
+                      {product.oldPrice && (
+                        <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                          ${product.oldPrice}
+                        </Typography>
+                      )}
+                    </Box>
+                  </CardContent>
+                </MotionCard>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   )
 }

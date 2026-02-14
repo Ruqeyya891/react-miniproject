@@ -1,4 +1,4 @@
-import { Box, Container, Grid2 as Grid, Typography, Link, IconButton } from '@mui/material'
+import { Box, Container,Grid, Typography, Link, IconButton } from '@mui/material'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import InstagramIcon from '@mui/icons-material/Instagram'

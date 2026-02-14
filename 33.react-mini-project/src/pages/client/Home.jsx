@@ -1,9 +1,15 @@
 import { Box, Container, Typography, Button, Grid, Card, CardMedia } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import RestaurantIcon from '@mui/icons-material/Restaurant'
 import StarIcon from '@mui/icons-material/Star'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
+
+// Motion components - YENİ SINTAKSIS
+const MotionBox = motion.create(Box)
+const MotionTypography = motion.create(Typography)
+const MotionCard = motion.create(Card)
 
 function Home() {
   const features = [
@@ -13,12 +19,22 @@ function Home() {
     { icon: SupportAgentIcon, title: 'Support', desc: '24/7 Support' },
   ]
 
+  const categories = [
+    { name: 'Vegetables', image: '/images/product-1.jpg' },
+    { name: 'Fruits', image: '/images/product-2.jpg' },
+    { name: 'Juice', image: '/images/product-8.jpg' },
+    { name: 'Dried', image: '/images/product-4.jpg' },
+  ]
+
   return (
     <Box>
       {/* Hero Section */}
-      <Box 
+      <MotionBox 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
         sx={{ 
-          height: '80vh',
+          height: { xs: '60vh', md: '80vh' },
           backgroundImage: 'url(/images/bg_1.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -39,64 +55,118 @@ function Home() {
           }
         }}
       >
-        <Box sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="h2" sx={{ mb: 2, fontWeight: 'bold' }}>
-            100% Fresh & Organic Foods
-          </Typography>
-          <Typography variant="h5" sx={{ mb: 4 }}>
-            We deliver organic vegetables & fruits
-          </Typography>
-          <Button 
-            variant="contained" 
-            component={Link} 
-            to="/shop"
+        <Box sx={{ position: 'relative', zIndex: 1, px: 2 }}>
+          <MotionTypography 
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            variant="h2" 
             sx={{ 
-              backgroundColor: '#82ae46', 
-              px: 4, 
-              py: 1.5,
-              fontSize: '1.1rem',
-              '&:hover': { backgroundColor: '#6b8c3a' }
+              mb: 2, 
+              fontWeight: 'bold',
+              fontSize: { xs: '2rem', sm: '3rem', md: '3.75rem' }
             }}
           >
-            View Details
-          </Button>
+            100% Fresh & Organic Foods
+          </MotionTypography>
+          
+          <MotionTypography 
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            variant="h5" 
+            sx={{ 
+              mb: 4,
+              fontSize: { xs: '1.2rem', sm: '1.5rem' }
+            }}
+          >
+            We deliver organic vegetables & fruits
+          </MotionTypography>
+          
+          <MotionBox
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+          >
+            <Button 
+              variant="contained" 
+              component={Link} 
+              to="/shop"
+              sx={{ 
+                backgroundColor: '#82ae46', 
+                px: 4, 
+                py: 1.5,
+                fontSize: { xs: '1rem', md: '1.1rem' },
+                '&:hover': { backgroundColor: '#6b8c3a' }
+              }}
+            >
+              View Details
+            </Button>
+          </MotionBox>
         </Box>
-      </Box>
+      </MotionBox>
 
       {/* Features Section */}
-      <Container maxWidth="xl" sx={{ py: 8 }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 4, md: 8 } }}>
         <Grid container spacing={4} justifyContent="center">
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Box sx={{ textAlign: 'center', p: 3 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+              <MotionBox 
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                sx={{ textAlign: 'center', p: 3 }}
+              >
                 <feature.icon sx={{ fontSize: 50, color: '#82ae46', mb: 2 }} />
                 <Typography variant="h6" sx={{ mb: 1 }}>{feature.title}</Typography>
                 <Typography variant="body2" color="text.secondary">{feature.desc}</Typography>
-              </Box>
+              </MotionBox>
             </Grid>
           ))}
         </Grid>
       </Container>
 
       {/* Categories Section */}
-      <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Typography variant="h4" sx={{ textAlign: 'center', mb: 6, fontWeight: 'bold' }}>
+      <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 }, pb: { xs: 4, md: 8 } }}>
+        <MotionTypography 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          variant="h4" 
+          sx={{ 
+            textAlign: 'center', 
+            mb: { xs: 4, md: 6 }, 
+            fontWeight: 'bold',
+            fontSize: { xs: '1.75rem', md: '2.125rem' }
+          }}
+        >
           Categories
-        </Typography>
-        <Grid container spacing={3}>
-          {[
-            { name: 'Vegetables', image: '/images/product-1.jpg' },
-            { name: 'Fruits', image: '/images/product-2.jpg' },
-            { name: 'Juice', image: '/images/product-8.jpg' },
-            { name: 'Dried', image: '/images/product-4.jpg' },
-          ].map((cat, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card sx={{ position: 'relative', overflow: 'hidden' }}>
+        </MotionTypography>
+        
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          {categories.map((cat, index) => (
+            <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+              <MotionCard 
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.03 }}
+                sx={{ 
+                  position: 'relative', 
+                  overflow: 'hidden',
+                  cursor: 'pointer'
+                }}
+              >
                 <CardMedia
                   component="img"
-                  height="300"
                   image={cat.image}
                   alt={cat.name}
+                  sx={{ 
+                    height: { xs: 200, sm: 250, md: 300 },
+                    objectFit: 'cover'
+                  }}
                 />
                 <Box sx={{ 
                   position: 'absolute', 
@@ -109,7 +179,7 @@ function Home() {
                 }}>
                   <Typography variant="h6" color="white">{cat.name}</Typography>
                 </Box>
-              </Card>
+              </MotionCard>
             </Grid>
           ))}
         </Grid>

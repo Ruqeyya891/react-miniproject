@@ -12,6 +12,7 @@ import AdminBlogs from './pages/admin/Blogs'
 
 // Components
 import Navbar from './components/common/Navbar'
+import Footer from './components/common/Footer'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/admin/blogs" element={<AdminBlogs />} />
         </Routes>
       </Box>
+      <Footer />  
     </Box>
   )
 }

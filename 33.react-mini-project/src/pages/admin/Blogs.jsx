@@ -17,7 +17,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField
+  TextField,
+  MenuItem
 } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom'
@@ -39,24 +40,20 @@ function AdminBlogs() {
   const [openDialog, setOpenDialog] = useState(false)
   const [editingBlog, setEditingBlog] = useState(null)
 
-  // Delete funksiyası
   const handleDelete = (id) => {
     setBlogs(blogs.filter(b => b.id !== id))
   }
 
-  // Edit funksiyası
   const handleEdit = (blog) => {
     setEditingBlog(blog)
     setOpenDialog(true)
   }
 
-  // Add funksiyası
   const handleAdd = () => {
     setEditingBlog(null)
     setOpenDialog(true)
   }
 
-  // Dialog bağla
   const handleClose = () => {
     setOpenDialog(false)
     setEditingBlog(null)
@@ -64,8 +61,15 @@ function AdminBlogs() {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      {/* Header */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+      {/* Header - Responsiv */}
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: { xs: 'column', sm: 'row' },
+        justifyContent: 'space-between', 
+        alignItems: { xs: 'flex-start', sm: 'center' }, 
+        gap: 2,
+        mb: 4 
+      }}>
         <Box>
           <Button 
             component={Link} 
@@ -83,15 +87,19 @@ function AdminBlogs() {
           variant="contained" 
           startIcon={<AddIcon />}
           onClick={handleAdd}
-          sx={{ backgroundColor: '#2196f3', '&:hover': { backgroundColor: '#1976d2' } }}
+          sx={{ 
+            backgroundColor: '#2196f3', 
+            '&:hover': { backgroundColor: '#1976d2' },
+            width: { xs: '100%', sm: 'auto' }
+          }}
         >
           Add Blog
         </Button>
       </Box>
 
-      {/* Blogs Table */}
-      <TableContainer component={Paper}>
-        <Table>
+      {/* Blogs Table - Responsiv */}
+      <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
+        <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
               <TableCell>ID</TableCell>

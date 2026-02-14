@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { 
   Box, 
   Container, 
-  Grid, 
+  Grid2 as Grid, 
   Typography, 
   Button, 
   Card, 
@@ -10,12 +10,16 @@ import {
   IconButton,
   TextField
 } from '@mui/material'
+import { motion } from 'framer-motion'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { Link } from 'react-router-dom'
 
-// Mock data - sonra API-dən gələcək
+const MotionBox = motion.create(Box)
+const MotionGrid = motion.create(Grid)
+const MotionCard = motion.create(Card)
+
+// Mock data
 const mockProducts = [
   { id: 1, name: "Bell Pepper", category: "Vegetables", price: 80, oldPrice: 120, discount: 30, image: "/images/product-1.jpg", description: "Fresh organic bell peppers, rich in vitamins and perfect for salads." },
   { id: 2, name: "Strawberry", category: "Fruits", price: 120, oldPrice: 120, discount: 0, image: "/images/product-2.jpg", description: "Sweet and juicy organic strawberries, hand-picked for best quality." },
@@ -27,6 +31,12 @@ const mockProducts = [
   { id: 8, name: "Fruit Juice", category: "Juice", price: 120, oldPrice: 120, discount: 0, image: "/images/product-8.jpg", description: "100% natural fruit juice, no preservatives added." },
 ]
 
+// animasiya
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 }
+}
+
 function ProductDetail() {
   const { id } = useParams()
   const product = mockProducts.find(p => p.id === parseInt(id))
@@ -34,52 +44,87 @@ function ProductDetail() {
   if (!product) {
     return (
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Typography variant="h4">Product not found</Typography>
-        <Button component={Link} to="/shop" startIcon={<ArrowBackIcon />}>
-          Back to Shop
-        </Button>
+        <MotionBox
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ duration: 0.5 }}
+        >
+          <Typography variant="h4">Product not found</Typography>
+          <Button component={Link} to="/shop" startIcon={<ArrowBackIcon />} sx={{ mt: 2, color: '#82ae46' }}>
+            Back to Shop
+          </Button>
+        </MotionBox>
       </Container>
     )
   }
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 2, md: 4 } }}>
       {/* Back Button */}
-      <Button 
-        component={Link} 
-        to="/shop" 
-        startIcon={<ArrowBackIcon />}
-        sx={{ mb: 3, color: '#82ae46' }}
+      <MotionBox
+        variants={fadeUpVariants}
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.5 }}
       >
-        Back to Shop
-      </Button>
+        <Button 
+          component={Link} 
+          to="/shop" 
+          startIcon={<ArrowBackIcon />}
+          sx={{ mb: 3, color: '#82ae46' }}
+        >
+          Back to Shop
+        </Button>
+      </MotionBox>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={{ xs: 3, md: 4 }}>
         {/* Image */}
-        <Grid item xs={12} md={6}>
-          <Card>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <MotionCard 
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            sx={{ overflow: 'hidden' }}
+          >
             <CardMedia
               component="img"
-              height="500"
               image={product.image}
               alt={product.name}
-              sx={{ objectFit: 'cover' }}
+              sx={{ 
+                height: { xs: 300, sm: 400, md: 500 },
+                objectFit: 'cover'
+              }}
             />
-          </Card>
+          </MotionCard>
         </Grid>
 
         {/* Details */}
-        <Grid item xs={12} md={6}>
-          <Box sx={{ p: 2 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <MotionBox 
+            variants={fadeUpVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            sx={{ p: { xs: 0, md: 2 } }}
+          >
             <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
               {product.category}
             </Typography>
             
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 'bold' }}>
+            <Typography 
+              variant="h3" 
+              sx={{ 
+                mb: 2, 
+                fontWeight: 'bold',
+                fontSize: { xs: '1.75rem', sm: '2.25rem', md: '3rem' }
+              }}
+            >
               {product.name}
             </Typography>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3, flexWrap: 'wrap' }}>
               <Typography variant="h4" color="#82ae46" fontWeight="bold">
                 ${product.price}
               </Typography>
@@ -94,7 +139,7 @@ function ProductDetail() {
                   sx={{ 
                     backgroundColor: '#82ae46', 
                     color: 'white', 
-                    px: 1, 
+                    px: 1.5, 
                     py: 0.5, 
                     borderRadius: 1 
                   }}
@@ -110,7 +155,7 @@ function ProductDetail() {
 
             {/* Quantity */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-              <Typography variant="body1">Quantity:</Typography>
+              <Typography variant="body1" fontWeight="medium">Quantity:</Typography>
               <TextField
                 type="number"
                 defaultValue={1}
@@ -121,13 +166,13 @@ function ProductDetail() {
             </Box>
 
             {/* Action Buttons */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
               <Button
                 variant="contained"
                 startIcon={<ShoppingCartIcon />}
                 sx={{ 
                   backgroundColor: '#82ae46', 
-                  px: 4, 
+                  px: { xs: 3, md: 4 }, 
                   py: 1.5,
                   '&:hover': { backgroundColor: '#6b8c3a' }
                 }}
@@ -145,7 +190,7 @@ function ProductDetail() {
                 <FavoriteBorderIcon />
               </IconButton>
             </Box>
-          </Box>
+          </MotionBox>
         </Grid>
       </Grid>
     </Container>

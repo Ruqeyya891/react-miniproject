@@ -10,6 +10,7 @@ import Cart from './pages/client/Cart'
 import Dashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/Products'
 import AdminBlogs from './pages/admin/Blogs'
+import About from './pages/client/About'
 
 // Components
 import Navbar from './components/common/Navbar'
@@ -27,7 +28,8 @@ function App() {
           <Route path="/shop" element={<Products />} />
           <Route path="/shop/:id" element={<ProductDetail />} />
           <Route path="/blog" element={<Blogs />} />
-          <Route path="/cart" element={<Cart />} />  
+          <Route path="/cart" element={<Cart />} /> 
+          <Route path="/about" element={<About />} /> 
           
           {/* Admin Routes */}
           <Route path="/admin" element={<Dashboard />} />

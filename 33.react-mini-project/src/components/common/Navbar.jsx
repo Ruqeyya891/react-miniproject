@@ -41,14 +41,14 @@ function Navbar() {
   const menuItems = [
     { text: 'HOME', link: '/' },
     { text: 'SHOP', link: '/shop' },
-    { text: 'ABOUT', link: '/' },
+    { text: 'ABOUT', link: '/about' },
     { text: 'BLOG', link: '/blog' },
     { text: 'CONTACT', link: '/' },
   ]
 
   return (
     <Box>
-      {/* Top Bar - Yaşıl zolaq (yalnız desktop) */}
+      {/*Yaşıl zolaq (yalnız desktop) */}
       <Box sx={{
         backgroundColor: '#82ae46',
         color: 'white',
@@ -72,8 +72,6 @@ function Navbar() {
           3-5 BUSINESS DAYS DELIVERY & FREE RETURNS
         </Typography>
       </Box>
-
-
 
       {/* Main Navbar */}
       <AppBar
@@ -152,12 +150,12 @@ function Navbar() {
                 <MenuItem component={Link} to="/shop" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Shop</MenuItem>
                 <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Wishlist</MenuItem>
                 <MenuItem component={Link} to="/shop/1" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Single Product</MenuItem>
-                <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Cart</MenuItem>
+                <MenuItem component={Link} to="/cart" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Cart</MenuItem>
                 <MenuItem component={Link} to="/" onClick={handleShopClose} sx={{ '&:hover': { color: '#82ae46' } }}>Checkout</MenuItem>
               </Menu>
             </Box>
 
-            <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>ABOUT</Button>
+            <Button component={Link} to="/about" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>ABOUT</Button>
             <Button component={Link} to="/blog" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>BLOG</Button>
             <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>CONTACT</Button>
           </Box>
@@ -170,13 +168,11 @@ function Navbar() {
               </Badge>
             </IconButton>
 
-            
             <IconButton component={Link} to="/cart" sx={{ color: '#000' }}>
               <Badge badgeContent={0} color="primary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-
 
             <Typography variant="body2" sx={{ ml: -0.5, fontWeight: 500, display: { xs: 'none', sm: 'block' } }}>
               [0]

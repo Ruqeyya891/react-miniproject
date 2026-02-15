@@ -157,7 +157,7 @@ function Navbar() {
 
             <Button component={Link} to="/about" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>ABOUT</Button>
             <Button component={Link} to="/blog" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>BLOG</Button>
-            <Button component={Link} to="/" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>CONTACT</Button>
+            <Button component={Link} to="/contact" sx={{ color: '#000', fontWeight: 500, '&:hover': { color: '#82ae46' } }}>CONTACT</Button>
           </Box>
 
           {/* Icons + Mobile Menu */}

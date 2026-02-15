@@ -11,10 +11,14 @@ import Dashboard from './pages/admin/Dashboard'
 import AdminProducts from './pages/admin/Products'
 import AdminBlogs from './pages/admin/Blogs'
 import About from './pages/client/About'
+import Contact from './pages/client/Contact'
 
 // Components
 import Navbar from './components/common/Navbar'
 import Footer from './components/common/Footer'
+import Modal from './components/common/Modal'
+import Input from './components/common/Input'
+import Button from './components/common/Button'
 
 function App() {
   return (
@@ -30,11 +34,12 @@ function App() {
           <Route path="/blog" element={<Blogs />} />
           <Route path="/cart" element={<Cart />} /> 
           <Route path="/about" element={<About />} /> 
-          
+          <Route path="/contact" element={<Contact/>} />          
           {/* Admin Routes */}
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/admin/blogs" element={<AdminBlogs />} />
+
         </Routes>
       </Box>
       <Footer />  

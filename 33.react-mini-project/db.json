@@ -1,3 +1,4 @@
+
 {
     "products": [
       {
@@ -81,6 +82,17 @@
         "date": "2024-05-12",
         "position": "Health",
         "image": "/images/product-6.jpg"
+        
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "email": "admin@gmail.com",
+        "password": "12345",
+        "role": "admin"
       }
     ]
   }
+
+  
